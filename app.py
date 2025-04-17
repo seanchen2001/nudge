@@ -1,30 +1,39 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 import os
 import psycopg2
+from psycopg2.extras import RealDictCursor
 from werkzeug.security import check_password_hash
+from urllib.parse import urlparse
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key'
+app.secret_key = os.environ.get("SECRET_KEY", "dev_secret_key")
 
 UPLOAD_FOLDER = 'uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
-# PostgreSQL DB credentials
-DB_PARAMS = {
-    'dbname': 'your_db',           # ← change this
-    'user': 'Interlix',
-    'password': 'Argentina123',
-    'port': '5432'
-}
+# Connect to PostgreSQL using DATABASE_URL from environment
+def get_db_connection():
+    db_url = os.environ.get("DATABASE_URL")
 
+    if db_url.startswith("postgres://"):
+        db_url = db_url.replace("postgres://", "postgresql://", 1)
+
+    return psycopg2.connect(db_url, sslmode="require")
+
+# Query user from DB
 def get_user_by_username(username):
-    conn = psycopg2.connect(**DB_PARAMS)
+    conn = get_db_connection()
     cur = conn.cursor()
     cur.execute("SELECT id, username, password FROM users WHERE LOWER(username) = LOWER(%s)", (username,))
     user = cur.fetchone()
     cur.close()
     conn.close()
     return user
+
+# Routes
+@app.route('/')
+def home():
+    return redirect(url_for('login'))
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -33,7 +42,7 @@ def login():
         password_input = request.form.get('password')
         user = get_user_by_username(username)
 
-        if user and user[2] == password_input:  # Direct comparison with plaintext password
+        if user and check_password_hash(user[2], password_input):
             session['user_id'] = user[0]
             session['username'] = user[1]
             return redirect(url_for('upload'))
@@ -64,7 +73,3 @@ def logout():
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-@app.route('/')
-def home():
-    return redirect(url_for('login'))
