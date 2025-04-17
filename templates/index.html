@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nudge Creative Studio</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <!-- Left: Company Logo and Dropdown -->
+        <div class="logo-bar" id="company-bar">
+            <img src="{{ url_for('static', filename='my-logo.png') }}" alt="Company Logo" class="logo-img company-logo" />
+            <div class="toggle-options left-options" id="company-options">
+                <ul>
+                    <li><a href="#">Dashboard</a></li>
+                    <li><a href="#">Docs</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <!-- Right: Client Logo and Dropdown -->
+        <div class="toggle-bar" id="client-bar">
+            <img src="{{ url_for('static', filename='client-logo.png') }}" alt="Client Logo" class="logo-img client-logo" />
+            <div class="toggle-options right-options" id="client-options">
+                <ul>
+                    <li><a href="#">My Account</a></li>
+                    <li><a href="#">Settings</a></li>
+                    <li><a href="#">Plan</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    
+
+    <!-- Main Content -->
+    <main>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash-message {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <div class="container">
+            <form method="POST" enctype="multipart/form-data">
+                <label for="file-upload" class="upload-container" id="upload-box">
+                    <input type="file" id="file-upload" class="file-upload" name="pdf_file" accept=".pdf" required />
+                    <p>Drag and drop files here, or click to select</p>
+                </label>
+                <div class="button-container">
+                    <button type="submit" id="process-button">Make Magic</button>
+                </div>
+            </form>            
+        </div>
+    </main>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const companyBar = document.getElementById("company-bar");
+            const clientBar = document.getElementById("client-bar");
+        
+            // Toggle Company Dropdown
+            companyBar.addEventListener("click", (e) => {
+                e.stopPropagation();
+                companyBar.classList.toggle("active");
+                clientBar.classList.remove("active");
+            });
+        
+            // Toggle Client Dropdown
+            clientBar.addEventListener("click", (e) => {
+                e.stopPropagation();
+                clientBar.classList.toggle("active");
+                companyBar.classList.remove("active");
+            });
+        
+            // Close dropdowns if clicking outside
+            document.addEventListener("click", () => {
+                companyBar.classList.remove("active");
+                clientBar.classList.remove("active");
+            });
+        });
+    </script>           
+</body>
+</html>
