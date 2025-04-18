@@ -47,14 +47,15 @@
 
         <div class="container">
             <form method="POST" enctype="multipart/form-data">
-                <label for="file-upload" class="upload-container" id="upload-box">
-                    <input type="file" id="file-upload" class="file-upload" name="pdf_file" accept=".pdf" required />
+                <div class="upload-container" id="upload-box">
+                    <input type="file" id="file-upload" class="file-upload" name="pdf_file" accept=".pdf" required hidden />
                     <p>Drag and drop files here, or click to select</p>
-                </label>
+                </div>
+                
                 <div class="button-container">
                     <button type="submit" id="process-button">Make Magic</button>
                 </div>
-            </form>            
+            </form>                           
         </div>
     </main>
 

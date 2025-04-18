@@ -2,12 +2,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const uploadBox = document.getElementById("upload-box");
     const fileInput = document.getElementById("file-upload");
 
-    // Click to open file selector
-    uploadBox.addEventListener("click", () => {
-        fileInput.click();
+    // Only trigger input click if the user clicks the box itself (not dragging, or clicking child elements)
+    uploadBox.addEventListener("click", (event) => {
+        if (event.target === uploadBox || event.target.tagName === "P") {
+            fileInput.click();
+        }
     });
 
-    // Show file name after selecting
+    // Show file name after selection
     fileInput.addEventListener("change", () => {
         const fileName = fileInput.files[0]?.name || "No file selected";
         uploadBox.querySelector("p").textContent = `Selected file: ${fileName}`;
@@ -19,7 +21,6 @@ document.addEventListener("DOMContentLoaded", () => {
         uploadBox.style.borderColor = "#b0b0b0";
     });
 
-    // Drag leave styling
     uploadBox.addEventListener("dragleave", () => {
         uploadBox.style.borderColor = "#ddd";
     });
@@ -35,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
         uploadBox.style.borderColor = "#ddd";
     });
 
-    // Toggle bar dropdowns (fixed target)
+    // Toggle bar dropdowns
     const toggleBar = document.getElementById("toggle-bar");
     if (toggleBar) {
         toggleBar.addEventListener("click", () => {
