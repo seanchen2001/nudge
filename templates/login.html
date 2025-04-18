@@ -24,17 +24,15 @@
         }
 
         .left-panel {
-            background: url("{{ url_for('static', filename='alt-background.png') }}") center center / cover no-repeat;
-            background-color: rgba(64, 64, 64, 0.4); /* adds slight tint over image */
+            background: url("{{ url_for('static', filename='background.png') }}") center center / cover no-repeat;
+            width: 40%;
+            height: 100%;
+            position: relative;
+            background-color: rgba(255, 255, 255, 0.05); /* transparent white wash */
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
-            width: 40%;
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            padding-top: 40px;
         }
+
 
         .left-title {
             color: white;
