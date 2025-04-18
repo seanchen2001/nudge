@@ -23,7 +23,7 @@
     
         <!-- Right: Client Logo and Dropdown -->
         <div class="toggle-bar" id="client-bar">
-            <img src="{{ url_for('static', filename=session.get('client_logo', 'default-logo.png')) }}" alt="Client Logo" class="logo-img client-logo" />
+            <img src="{{ url_for('static', filename='client-logo/' + session.get('client-logo', 'default-logo.png')) }}" alt="Client Logo" class="logo-img client-logo" />
             <div class="toggle-options right-options" id="client-options">
                 <ul>
                     <li><a href="#">My Account</a></li>
