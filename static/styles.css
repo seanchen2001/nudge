@@ -235,7 +235,7 @@ main {
 }
 
 .left-panel {
-    background: url("{{ url_for('static', filename='background.png') }}") center center / cover no-repeat;
+    background: url("{{ url_for('static', filename='alt-background.png') }}") center center / cover no-repeat;
     background-color: rgba(64, 64, 64, 0.4); /* adds slight tint over image */
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
