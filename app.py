@@ -45,6 +45,16 @@ def login():
         if user and check_password_hash(user[2], password_input):
             session['user_id'] = user[0]
             session['username'] = user[1]
+
+            # 👇 Add this: associate a logo based on the user
+            # You can also pull this from a DB if you want
+            if username == "interlix":
+                session['client-logo'] = 'interlix.png'
+            elif username == "ucotrading":
+                session['client-logo'] = 'ucotrading.png'
+            else:
+                session['client-logo'] = 'default-logo.png'
+
             return redirect(url_for('upload'))
         else:
             flash('Invalid username or password', 'error')
