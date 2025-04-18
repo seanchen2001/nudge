@@ -7,39 +7,79 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
   <style>
     * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
     }
 
     body, html {
-      height: 100%;
-      font-family: Arial, sans-serif;
+        height: 100%;
+        font-family: Arial, sans-serif;
     }
 
     .wrapper {
-      display: flex;
-      height: 100vh;
-      width: 100%;
-      overflow: hidden;
+        display: flex;
+        height: 100vh;
+        width: 100%;
+        overflow: hidden;
     }
 
-    /* LEFT PANEL */
     .left-panel {
-      background-color: #1e1e1e;
-      width: 40%;
-      height: 100%;
+        background-color: #1e1e1e;
+        width: 40%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
+
+    .button-group {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .get-started-btn,
+    .usecases-btn {
+        padding: 14px 32px;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 8px;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+        font-weight: 500;
+    }
+
+    /* Get Started button (gray, darker on hover) */
+    .get-started-btn {
+        background-color: #3a3a3a;
+    color: white;
+    }
+
+    .get-started-btn:hover {
+        background-color: #2e2e2e;
+    }
+
+    /* Usecases button (black, lighter on hover) */
+    .usecases-btn {
+        background-color: #111;
+        color: white;
+    }
+
+    .usecases-btn:hover {
+    background-color: #333;
+    }
+
 
     /* RIGHT PANEL WITH BG IMAGE */
     .right-panel {
-      background: url("{{ url_for('static', filename='background.png') }}") center center / cover no-repeat;
-      width: 60%;
-      height: 100%;
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+        background: url("{{ url_for('static', filename='background.png') }}") center center / cover no-repeat;
+        width: 60%;
+        height: 100%;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     /* GLASSY LOGIN BOX */
@@ -99,29 +139,32 @@
   </style>
 </head>
 <body>
-  <div class="wrapper">
-    <div class="left-panel">
-      <!-- You can add a logo or title here later if you want -->
-    </div>
-    <div class="right-panel">
-      <div class="login-box">
-        <h2 style="color: #000;">NUDGE</h2>
+    <div class="wrapper">
+        <div class="left-panel">
+            <div class="button-group">
+            <a href="#" class="get-started-btn">Get Started</a>
+            <a href="#" class="usecases-btn">Usecases</a>
+            </div>
+        </div>      
+        <div class="right-panel">
+        <div class="login-box">
+            <h2 style="color: #000;">NUDGE</h2>
 
-        {% with messages = get_flashed_messages(with_categories=true) %}
-          {% if messages %}
-            {% for category, message in messages %}
-              <div class="flash">{{ message }}</div>
-            {% endfor %}
-          {% endif %}
-        {% endwith %}
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                <div class="flash">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+            {% endwith %}
 
-        <form method="POST">
-          <input type="text" name="username" placeholder="Username" required />
-          <input type="password" name="password" placeholder="Password" required />
-          <button type="submit">Enter</button>
-        </form>
-      </div>
+            <form method="POST">
+            <input type="text" name="username" placeholder="Username" required />
+            <input type="password" name="password" placeholder="Password" required />
+            <button type="submit">Enter</button>
+            </form>
+        </div>
+        </div>
     </div>
-  </div>
 </body>
 </html>
