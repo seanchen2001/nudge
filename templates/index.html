@@ -17,6 +17,7 @@
                     <li><a href="#">Dashboard</a></li>
                     <li><a href="#">Docs</a></li>
                     <li><a href="#">Contact</a></li>
+                    <li><a href="{{ url_for('logout') }}">Log Out</a></li> <!-- ← Add this line -->
                 </ul>
             </div>
         </div>
@@ -51,7 +52,7 @@
                     <input type="file" id="file-upload" class="file-upload" name="pdf_file" accept=".pdf" required hidden />
                     <p>Drag and drop files here, or click to select</p>
                 </div>
-                
+
                 <div class="button-container">
                     <button type="submit" id="process-button">Make Magic</button>
                 </div>
