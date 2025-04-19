@@ -62,45 +62,5 @@
 
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 
-    <script>
-        // Existing dropdown toggle logic
-        document.addEventListener("DOMContentLoaded", () => {
-            const companyBar = document.getElementById("company-bar");
-            const clientBar = document.getElementById("client-bar");
-
-            // Toggle Company Dropdown
-            companyBar.addEventListener("click", (e) => {
-                e.stopPropagation();
-                companyBar.classList.toggle("active");
-                clientBar.classList.remove("active");
-            });
-
-            // Toggle Client Dropdown
-            clientBar.addEventListener("click", (e) => {
-                e.stopPropagation();
-                clientBar.classList.toggle("active");
-                companyBar.classList.remove("active");
-            });
-
-            // Close dropdowns if clicking outside
-            document.addEventListener("click", () => {
-                companyBar.classList.remove("active");
-                clientBar.classList.remove("active");
-            });
-
-            // ✅ NEW: Prevent double form submission
-            const form = document.querySelector("form");
-            let submitting = false;
-
-            form.addEventListener("submit", (e) => {
-                if (submitting) {
-                    e.preventDefault();
-                    return false;
-                }
-                submitting = true;
-            });
-        });
-    </script>
-
 </body>
 </html>

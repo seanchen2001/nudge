@@ -1,21 +1,19 @@
 document.addEventListener("DOMContentLoaded", () => {
+    console.log("✅ script.js loaded");
+
     const uploadBox = document.getElementById("upload-box");
     const fileInput = document.getElementById("file-upload");
     const form = document.querySelector("form");
 
-    // ✅ Click upload area to open file picker
+    // Upload box click
     if (uploadBox && fileInput) {
-        uploadBox.addEventListener("click", () => {
-            fileInput.click();
-        });
+        uploadBox.addEventListener("click", () => fileInput.click());
 
-        // ✅ Show file name when selected
         fileInput.addEventListener("change", () => {
             const fileName = fileInput.files[0]?.name || "No file selected";
             uploadBox.querySelector("p").textContent = `Selected file: ${fileName}`;
         });
 
-        // ✅ Handle drag-and-drop styling
         uploadBox.addEventListener("dragover", (event) => {
             event.preventDefault();
             uploadBox.style.borderColor = "#b0b0b0";
@@ -25,7 +23,6 @@ document.addEventListener("DOMContentLoaded", () => {
             uploadBox.style.borderColor = "#999";
         });
 
-        // ✅ Handle file drop
         uploadBox.addEventListener("drop", (event) => {
             event.preventDefault();
             const files = event.dataTransfer.files;
@@ -37,19 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // ✅ Prevent double form submission
-    if (form) {
-        let submitting = false;
-        form.addEventListener("submit", (e) => {
-            if (submitting) {
-                e.preventDefault();
-                return false;
-            }
-            submitting = true;
-        });
-    }
-
-    // ✅ Dropdown toggles for logos
+    // Dropdown toggles
     const companyBar = document.getElementById("company-bar");
     const clientBar = document.getElementById("client-bar");
 
@@ -69,6 +54,18 @@ document.addEventListener("DOMContentLoaded", () => {
         document.addEventListener("click", () => {
             companyBar.classList.remove("active");
             clientBar.classList.remove("active");
+        });
+    }
+
+    // Prevent double form submission
+    if (form) {
+        let submitting = false;
+        form.addEventListener("submit", (e) => {
+            if (submitting) {
+                e.preventDefault();
+                return false;
+            }
+            submitting = true;
         });
     }
 });
